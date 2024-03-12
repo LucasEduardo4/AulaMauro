@@ -1,0 +1,102 @@
+import 'package:flutter/material.dart';
+
+class Pagina2 extends StatefulWidget {
+  const Pagina2({super.key});
+
+  @override
+  State<Pagina2> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<Pagina2> {
+  String _nome = '';
+  String _notaDigitada_1 = '';
+  String _notaDigitada_2 = '';
+  String _notaDigitada_3 = '';
+  String _notaDigitada_4 = '';
+  String media_notas = '';
+
+  String _resultado = 'Fulano foi aprovado';
+
+  void _calculaResultado() {
+    var nota_1 = double.tryParse(_notaDigitada_1);
+    var nota_2 = double.tryParse(_notaDigitada_2);
+    var nota_3 = double.tryParse(_notaDigitada_3);
+    var nota_4 = double.tryParse(_notaDigitada_4);
+
+    setState(() {
+      if (nota_1 != null) {
+        if (nota_1 >= 6.0) {
+          _resultado = '$_nome foi aprovado!';
+        } else {
+          _resultado = '$_nome foi reprovado! ';
+        }
+      } else {
+        _resultado = '';
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Resultado Final'),
+      ),
+      body: Column(
+        children: [
+          Row(
+            children: [
+              const Text('Nome:'),
+              SizedBox(
+                  width: 100,
+                  child: TextField(onChanged: (String valor) {
+                    _nome = valor;
+                    print(_nome);
+                  })),
+            ],
+          ),
+          Row(
+            children: [
+              const Text('Nota 1:'),
+              SizedBox(
+                  width: 100,
+                  child: TextField(onChanged: (String valor) {
+                    _notaDigitada_1 = valor;
+                    print(_notaDigitada_1);
+                  })),
+              const Text('Nota 2:'),
+              SizedBox(
+                  width: 100,
+                  child: TextField(onChanged: (String valor) {
+                    _notaDigitada_2 = valor;
+                    print(_notaDigitada_2);
+                  })),
+              const Text('Nota 3:'),
+              SizedBox(
+                  width: 100,
+                  child: TextField(onChanged: (String valor) {
+                    _notaDigitada_3 = valor;
+                    print(_notaDigitada_3);
+                  })),
+              const Text('Nota 4:'),
+              SizedBox(
+                  width: 100,
+                  child: TextField(onChanged: (String valor) {
+                    _notaDigitada_4 = valor;
+                    print(_notaDigitada_4);
+                  })),
+            ],
+          ),
+          ElevatedButton(
+              onPressed: () {
+                _calculaResultado();
+              },
+              child: const Text('VER MÉDIAS')),
+          Row(
+            children: [Text('$_resultado')],
+          )
+        ],
+      ),
+    );
+  }
+}
